@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Exequiel Trangoni | Reingeniería y Repuestos Plásticos a Medida en Vicente López</title>
-  <meta name="description" content="Reingeniería, diseño CAD y fabricación aditiva de piezas funcionales, herramientas auxiliares y repuestos discontinuados en plásticos técnicos (PETG, ABS, ASA, TPU) en Florida Oeste, Vicente López.">
+  <title>Chompira 3D | Repuestos Plásticos y Soluciones a Medida en Vicente López</title>
+  <meta name="description" content="Diseño y fabricación de repuestos plásticos discontinuados, piezas funcionales a medida y soluciones para talleres y comercios en Florida Oeste, Vicente López.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -18,7 +18,6 @@
       --border-subtle: #CBD5E1;
       --accent-cobalt: #0055B8;
       --accent-cobalt-hover: #003F8A;
-      --accent-amber: #D96B06;
       --font-heading: 'Barlow', sans-serif;
       --font-body: 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     }
@@ -71,7 +70,7 @@
 
     .site-title {
       font-family: var(--font-heading);
-      font-size: 1.35rem;
+      font-size: 1.4rem;
       font-weight: 700;
       letter-spacing: -0.01em;
     }
@@ -555,13 +554,13 @@
   <header class="site-header">
     <div class="container header-inner">
       <div>
-        <div class="site-title">Exequiel Trangoni | Reingeniería y Repuestos 3D</div>
+        <div class="site-title">CHP / Chompira 3D | Diseño y Repuestos a Medida</div>
         <div class="site-location">Taller en Martín J. Haedo al 4200, Florida Oeste (Vicente López, Zona Norte)</div>
       </div>
       <nav class="header-nav no-print">
         <a href="#catalogo">Piezas por rubro</a>
-        <a href="#trabajos">Fotos de taller</a>
-        <a href="#materiales">Materiales</a>
+        <a href="#trabajos">Muestras reales</a>
+        <a href="#resistencia">Tipos de resistencia</a>
         <a href="#contacto">Ubicación y contacto</a>
         <button class="btn-print" onclick="window.print()">Guardar catálogo en PDF</button>
       </nav>
@@ -573,7 +572,7 @@
       <div>
         <h1>Fabricamos repuestos plásticos y soluciones a medida para que no tengas máquinas ni vehículos parados.</h1>
         <p class="hero-description">
-          Hacemos reingeniería y diseño CAD a partir de la pieza rota (incluso si está partida en dos) e imprimimos el reemplazo en plásticos técnicos de cámara cerrada (PETG, ABS, ASA y TPU) que soportan temperatura, fricción y esfuerzo mecánico.
+          Tomamos las medidas con calibre a partir de la pieza rota (incluso si está partida en dos), la diseñamos reforzando los puntos débiles y fabricamos el reemplazo en plásticos macizos que aguantan temperatura, fuerza y uso diario.
         </p>
         <div class="hero-actions no-print">
           <a href="#contacto" class="btn-primary">Consultar presupuesto o retiro de muestra</a>
@@ -585,8 +584,8 @@
             <span>Plazo habitual de entrega</span>
           </div>
           <div>
-            <strong>Hasta 98 °C</strong>
-            <span>Resistencia térmica en ABS y ASA</span>
+            <strong>Alta resistencia</strong>
+            <span>Piezas que soportan calor y tracción</span>
           </div>
           <div>
             <strong>Florida Oeste</strong>
@@ -596,9 +595,9 @@
       </div>
 
       <div class="hero-showcase">
-        <img src="./fotos_catalogo/1_repuestos_antes_despues.jpg" alt="Soporte plástico original roto junto al repuesto nuevo fabricado en PETG negro y calibre metálico" onclick="openLightbox(this.src)">
+        <img src="./fotos_catalogo/1_repuestos_antes_despues.jpg" alt="Soporte plástico original roto junto al repuesto nuevo fabricado en plástico negro macizo y calibre metálico" onclick="openLightbox(this.src)">
         <div class="hero-showcase-caption">
-          <strong>Reconstrucción sobre muestra rota:</strong> a la izquierda, el soporte original partido y reseco; a la derecha, el repuesto clonado con calibre y reforzado en plástico técnico negro.
+          <strong>Reconstrucción sobre muestra rota:</strong> a la izquierda, el soporte original partido y reseco; a la derecha, el repuesto copiado con calibre y reforzado en material negro macizo.
         </div>
       </div>
     </div>
@@ -608,13 +607,13 @@
     <div class="container">
       <div class="section-header">
         <h2>Qué piezas fabricamos según tu rubro</h2>
-        <p>Trabajamos tanto por unidad (copiando una muestra rota) como en pequeñas series para talleres, comercios, servicios técnicos y fábricas de Zona Norte.</p>
+        <p>Trabajamos tanto por unidad (copiando una muestra rota) como en pequeñas tandas para talleres, comercios, servicios técnicos y fábricas de Zona Norte.</p>
       </div>
 
       <div class="filter-tabs no-print" role="tablist">
         <button class="filter-tab active" onclick="filterSector('todos', this)">Todos los rubros</button>
         <button class="filter-tab" onclick="filterSector('automotor', this)">Talleres mecánicos, chapa y motos</button>
-        <button class="filter-tab" onclick="filterSector('electro', this)">Línea blanca y gastronomía</button>
+        <button class="filter-tab" onclick="filterSector('electro', this)">Electrodomésticos, audio y gastronomía</button>
         <button class="filter-tab" onclick="filterSector('industrial', this)">Aberturas, portones y ortopedia</button>
         <button class="filter-tab" onclick="filterSector('comercio', this)">Gráficas, kioscos y comercios</button>
       </div>
@@ -636,31 +635,31 @@
             </ul>
           </div>
           <div class="sector-material">
-            <span>Material utilizado</span>
-            <strong>ABS y ASA térmico</strong>
-            <span>No se deforma al sol dentro del habitáculo ni bajo el capot.</span>
+            <span>Terminación</span>
+            <strong>Apto para calor y sol</strong>
+            <span>No se ablanda ni se deforma al sol dentro del habitáculo ni bajo el capot.</span>
           </div>
         </article>
 
         <article class="sector-block" data-sector="electro">
           <div class="sector-info">
-            <h3>Service de electrodomésticos y equipamiento gastronómico</h3>
-            <p>Componentes macizos para equipos de uso intensivo en cocinas, panaderías, fiambrerías y hogar.</p>
+            <h3>Service de electrodomésticos, audio y gastronomía</h3>
+            <p>Componentes a medida para equipos de audio, pequeños electrodomésticos, panaderías, fiambrerías y línea blanca.</p>
           </div>
           <div class="sector-items">
             <ul>
+              <li>Engranajes internos, perillas, botones y terminaciones para equipos de audio y electrónica.</li>
+              <li>Perillas graduadas, manijas, sinfines y empujadores para cortadoras de fiambre.</li>
               <li>Perillas reforzadas con vástago en D para cocinas, hornos y anafes.</li>
-              <li>Perillas graduadas, manijas y empujadores para cortadoras de fiambre.</li>
               <li>Trabas y pestillos de puerta de lavarropas, secarropas y microondas.</li>
               <li>Tapas de tolva y acoples para cafeteras express y molinos.</li>
-              <li>Manijas de heladeras, soportes de estantes y bisagras plásticas.</li>
-              <li>Boquillas y adaptadores a medida para aspiradoras.</li>
+              <li>Boquillas, acoples y adaptadores a medida para aspiradoras.</li>
             </ul>
           </div>
           <div class="sector-material">
-            <span>Material utilizado</span>
-            <strong>PETG y ABS macizo</strong>
-            <span>Alta resistencia al torque manual, vapor, humedad y limpieza diaria.</span>
+            <span>Terminación</span>
+            <strong>Piezas macizas de uso intensivo</strong>
+            <span>Alta precisión en dientes de engranajes y resistencia al giro, vapor y limpieza diaria.</span>
           </div>
         </article>
 
@@ -676,13 +675,13 @@
               <li>Punteras, soportes de cadena y adaptadores de tubo para cortinas roller.</li>
               <li>Topes de correderas, esquineros y tapas de desagote para aluminio.</li>
               <li>Carcasas de finales de carrera, levas de destrabe y soportes de fotocélulas.</li>
-              <li>Plantillas de agujereado (jigs), bujes y regatones en goma TPU.</li>
+              <li>Plantillas de agujereado (jigs), bujes y regatones flexibles.</li>
             </ul>
           </div>
           <div class="sector-material">
-            <span>Material utilizado</span>
-            <strong>PETG, ASA y TPU 95A</strong>
-            <span>Combinamos piezas rígidas estructurales y topes flexibles amortiguantes.</span>
+            <span>Terminación</span>
+            <strong>Rígido o goma flexible</strong>
+            <span>Combinamos piezas firmes de carga con topes flexibles amortiguantes.</span>
           </div>
         </article>
 
@@ -715,7 +714,7 @@
     <div class="container">
       <div class="section-header">
         <h2>Muestras reales de nuestro banco de trabajo</h2>
-        <p>Hacé clic en cualquier imagen para ampliarla y ver en detalle la terminación del material.</p>
+        <p>Hacé clic en cualquier imagen para ampliarla y ver en detalle la terminación de las piezas.</p>
       </div>
 
       <div class="workshop-grid">
@@ -723,7 +722,7 @@
           <img src="./fotos_catalogo/2_piezas_tecnicas_varias.jpg" alt="Muestrario de engranaje gris, perilla negra con vástago en D, patines de levantavidrios y buje" onclick="openLightbox(this.src)">
           <div class="workshop-caption">
             <h3>Repuestos de tracción y ajuste</h3>
-            <p>Engranajes rectos, perillas de horno con encastre reforzado, guías de levantavidrios y bujes separadores impresos con paredes macizas.</p>
+            <p>Engranajes rectos, perillas de horno con encastre reforzado, guías de levantavidrios y bujes separadores fabricados con paredes macizas.</p>
           </div>
         </div>
 
@@ -731,56 +730,52 @@
           <img src="./fotos_catalogo/3_grafica_exhibidores_corporeos.jpg" alt="Exhibidor de mostrador con código QR impreso en relieve blanco y negro junto a llaveros corporativos" onclick="openLightbox(this.src)">
           <div class="workshop-caption">
             <h3>Displays QR y artículos para comercios</h3>
-            <p>El código QR se imprime directamente con cambio de filamento negro sobre base blanca: no lleva sticker, no se despega ni se borra.</p>
+            <p>El código QR se fabrica directamente en relieve en dos colores de plástico: no lleva sticker, no se despega ni se borra con la limpieza.</p>
           </div>
         </div>
 
         <div class="workshop-item">
-          <img src="./fotos_catalogo/4_impresora_produccion.jpg" alt="Impresora 3D Adventurer 5M Pro de cámara cerrada con un soporte mecánico en L recién impreso" onclick="openLightbox(this.src)">
+          <img src="./fotos_catalogo/4_relevamiento_calibre.jpg" alt="Relevamiento de pieza rota con calibre digital y repuestos terminados listos para entregar" onclick="openLightbox(this.src)">
           <div class="workshop-caption">
-            <h3>Equipo de cámara cerrada de alta velocidad</h3>
-            <p>Trabajamos con cabina cerrada térmicamente para imprimir ABS, ASA y PETG técnico sin contracciones ni delaminación entre capas.</p>
+            <h3>Relevamiento con calibre sobre muestra rota</h3>
+            <p>Tomamos todas las medidas de la pieza original en el banco y te entregamos el repuesto nuevo listo para instalar, por unidad o por tanda.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section" id="materiales">
+  <section class="section" id="resistencia">
     <div class="container">
       <div class="section-header">
-        <h2>Qué material elegimos para cada trabajo</h2>
-        <p>No usamos plástico escolar ni de maqueta para piezas mecánicas. Seleccionamos el polímero según la temperatura, el roce y la fuerza que recibe la pieza.</p>
+        <h2>Cómo elegimos el plástico adecuado para tu pieza</h2>
+        <p>Vos no necesitás saber de materiales: nos contás dónde va colocada la pieza y qué fuerza o temperatura recibe, y nosotros usamos el compuesto que corresponde.</p>
       </div>
 
       <div class="table-container">
         <table class="spec-table">
           <thead>
             <tr>
-              <th>Material técnico</th>
-              <th>Temperatura soportada</th>
-              <th>Propiedades principales</th>
-              <th>Aplicaciones recomendadas</th>
+              <th>Exigencia de la pieza</th>
+              <th>Qué soporta</th>
+              <th>En qué casos lo usamos</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>PETG Industrial</strong></td>
-              <td>Hasta 75 °C</td>
-              <td>Alta tenacidad mecánica, ligera flexión antes de rotura, resistente al agua, grasas y productos de limpieza.</td>
-              <td>Repuestos de lavarropas y heladeras, acoples de máquinas, soportes de herramientas, ortopedia y herrajes.</td>
+              <td><strong>Uso mecánico y fricción diaria</strong></td>
+              <td>Golpes, tracción, humedad, grasas y productos de limpieza sin quebrarse.</td>
+              <td>Engranajes de audio y electrodomésticos, trabas de lavarropas, soportes de herramientas, ortopedia y herrajes.</td>
             </tr>
             <tr>
-              <td><strong>ABS / ASA</strong></td>
-              <td>Hasta 98 °C</td>
-              <td>Máxima rigidez térmica y estructural. El ASA suma protección contra rayos UV solares e intemperie.</td>
-              <td>Interior y torpedo de autos al sol, soportes bajo capot, carcasas de portones exteriores y perillas de cocinas.</td>
+              <td><strong>Alta temperatura e intemperie</strong></td>
+              <td>Calor directo del sol (hasta 98 °C), rayos UV, lluvia y cercanía a motores u hornos.</td>
+              <td>Torpedo e interior de autos al sol, soportes de ópticas, carcasas de portones exteriores y perillas de cocinas o gastronomía.</td>
             </tr>
             <tr>
-              <td><strong>TPU 95A (Elastómero)</strong></td>
-              <td>Hasta 80 °C</td>
-              <td>Material tipo caucho semirrígido, flexible, indesgarrable y resistente a la abrasión y vibraciones.</td>
-              <td>Regatones especiales, topes de impacto, patas antivibratorias, fuelles, juntas y protectores de apoyo.</td>
+              <td><strong>Flexibilidad y absorción de impacto</strong></td>
+              <td>Compuesto tipo caucho semirrígido que no se raja, amortigua vibraciones y no raya superficies.</td>
+              <td>Regatones especiales para sillas y muebles, topes de impacto, patas antivibratorias, fuelles y juntas a medida.</td>
             </tr>
           </tbody>
         </table>
@@ -801,7 +796,7 @@
             <div class="step-number">1</div>
             <div>
               <h3>Mandanos una foto de la pieza rota</h3>
-              <p>Si podés, poné una regla o cinta métrica al lado al sacar la foto. Con eso te damos un presupuesto estimativo en el día y te confirmamos la viabilidad.</p>
+              <p>Si podés, poné una regla o cinta métrica al lado al sacar la foto. Con eso te damos un presupuesto estimativo en el día.</p>
             </div>
           </li>
           <li class="step-item">
@@ -814,8 +809,8 @@
           <li class="step-item">
             <div class="step-number">3</div>
             <div>
-              <h3>Diseño CAD y entrega en 24 a 48 hs</h3>
-              <p>Relevamos la geometría en Fusion 360 reforzando la zona donde falló la pieza original, imprimimos el reemplazo y te queda el archivo guardado por si necesitás repetirlo más adelante.</p>
+              <h3>Fabricación a medida y entrega en 24 a 48 hs</h3>
+              <p>Dibujamos la pieza en 3D reforzando la zona donde se partió la original, fabricamos el reemplazo y te queda el diseño guardado por si necesitás repetirlo más adelante.</p>
             </div>
           </li>
         </ol>

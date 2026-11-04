@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Contactos Locales - Exequiel (Florida Oeste)</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --wa: #22c55e;
+      --wa-hover: #16a34a;
+      --mail: #3b82f6;
+      --mail-hover: #2563eb;
+      --accent: #f59e0b;
+    }
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
+    body {
+      margin: 0;
+      padding: 24px;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 1150px;
+      margin: 0 auto;
+    }
+    header {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+    h1 { margin: 0 0 8px 0; font-size: 1.5rem; }
+    .subtitle { color: var(--muted); font-size: 0.95rem; margin: 0; }
+    .stats {
+      display: flex;
+      gap: 14px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .stat-badge {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+    }
+    .filter-bar {
+      margin-bottom: 16px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .search-input {
+      flex: 1;
+      min-width: 240px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+      gap: 16px;
+    }
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .card.sent {
+      border-color: var(--wa);
+    }
+    .card.replied {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .title { font-weight: 700; font-size: 1.05rem; margin: 0; }
+    .category {
+      font-size: 0.75rem;
+      background: #334155;
+      color: #e2e8f0;
+      padding: 3px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+    .meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    textarea {
+      width: 100%;
+      min-height: 110px;
+      background: #0f172a;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 0.86rem;
+      resize: vertical;
+    }
+    .actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      text-decoration: none;
+      padding: 8px 13px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.82rem;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: white;
+    }
+    .btn-wa { background: var(--wa); }
+    .btn-wa:hover { background: var(--wa-hover); }
+    .btn-mail { background: var(--mail); }
+    .btn-mail:hover { background: var(--mail-hover); }
+    .status-select {
+      margin-left: auto;
+      background: #0f172a;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 7px 10px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Panel CRM de Primeros Clientes — Florida Oeste / Munro / Vte. López</h1>
+      <p class="subtitle">Base: Martín J. Haedo 4280, Florida Oeste | Exequiel (exetrangoni89@gmail.com) | Flashforge AD5M Pro</p>
+      <div class="stats">
+        <div class="stat-badge">📍 <strong>31 Comercios, Talleres y Fábricas de la zona</strong></div>
+        <div class="stat-badge">💬 <strong>22 WhatsApps Enviados</strong></div>
+        <div class="stat-badge">✉️ <strong>12 Correos Enviados</strong></div>
+        <div class="stat-badge" id="counter">Contactados: 31 / 31</div>
+      </div>
+    </header>
+
+    <div class="filter-bar">
+      <input type="text" id="search" class="search-input" placeholder="🔍 Buscar por nombre, teléfono, rubro o calle (ej. Mitre, Ortopedia, Gráfica)..." oninput="render()">
+    </div>
+
+    <div class="grid" id="cards-container"></div>
+  </div>
+
+  <script>
+    const leads = [
+      // TANDA 1 (Talleres, Repuestos, Cerrajerías, Service Electrodomésticos, Buloneras)
+      {
+        id: 1,
+        name: "Custom Shine Autoradio",
+        category: "Autoradio y Calefacción",
+        address: "Av. Bartolomé Mitre 2050, Florida Oeste / Munro",
+        wa: "5491165534329",
+        phoneDisplay: "11 6553-4329",
+        email: "",
+        msg: "Hola, ¿qué tal? Mi nombre es Exequiel, soy vecino de acá de Florida Oeste (estoy sobre la calle Martín J. Haedo). Les escribo brevemente para dejarles mi contacto: realizo fabricación de repuestos y piezas plásticas a medida mediante impresión 3D con materiales técnicos que resisten la temperatura del habitáculo y del sol sin deformarse. Si en algún trabajo de calefacción o tablero se encuentran con algún engranaje de compuerta, leva, soporte o grampa rota que no se consiga como repuesto, puedo acercarme a tomar las medidas de la pieza dañada y fabricar el reemplazo a medida. Quedo a disposición por cualquier consulta. ¡Muchas gracias y saludos!"
+      },
+      {
+        id: 2,
+        name: "XproMotos",
+        category: "Taller y Repuestos Motos",
+        address: "Av. Bartolomé Mitre 1969, Florida Oeste",
+        wa: "5491124511999",
+        phoneDisplay: "11 2451-1999",
+        email: "",
+        msg: "Hola, ¿qué tal? Mi nombre es Exequiel, soy de acá de Florida Oeste (zona calle Haedo). Les escribo para dejarles mi contacto a disposición del taller: fabrico repuestos y piezas plásticas a medida en impresión 3D de alta resistencia. Si en algún momento reciben una moto con algún soporte de tablero, traba de carenado, tope, separador o tapa que no se consiga o esté en falta, puedo pasar por el local de Av. Mitre, relevar las medidas de la pieza rota y fabricar una nueva reforzada. Quedo a su disposición. ¡Saludos cordiales!"
+      },
+      {
+        id: 3,
+        name: "Mitre Motor",
+        category: "Casa de Repuestos",
+        address: "Av. Bartolomé Mitre 1656, Florida Oeste",
+        wa: "5491122989965",
+        phoneDisplay: "11 2298-9965",
+        email: "",
+        msg: "Hola, ¿qué tal? Mi nombre es Exequiel, soy vecino de Florida Oeste. Les escribo para ofrecerles mi servicio por si les resulta útil en el mostrador: fabrico repuestos plásticos de automotor a medida a partir de la muestra rota (para esos casos en que el cliente busca una pieza discontinuada o que no se vende suelta). Trabajo con materiales técnicos resistentes a la temperatura y al desgaste. Cuando lo deseen, puedo acercarme por el local de Av. Mitre para mostrarles algunas piezas de ejemplo y comentarles cómo trabajamos. ¡Muchas gracias y saludos!"
+      },
+      {
+        id: 4,
+        name: "Taller Milano",
+        category: "Chapa y Pintura",
+        address: "Maquinista Carregal 3116, Munro",
+        wa: "5491173627097",
+        phoneDisplay: "11 7362-7097",
+        email: "administracion@tallermilano.com.ar",
+        subject: "Vecino de Florida Oeste - Repuestos y soportes plásticos a medida",
+        msg: "Hola, ¿qué tal? Mi nombre es Exequiel, vivo acá cerca en Florida Oeste. Les dejo mi contacto por si les resulta de utilidad en el área de chapa, pintura y armado: realizo fabricación de repuestos plásticos a medida con materiales reforzados de alta resistencia térmica. Cuando al armar una trompa o puerta falta un soporte de óptica, guía de paragolpes, grampa especial o traba que no se vende por separado, puedo acercarme al taller a tomar las medidas de la pieza rota (o copiar la del lado opuesto en espejo) y fabricarla rápidamente. Quedo a disposición. ¡Saludos cordiales!"
+      },
+      {
+        id: 5,
+        name: "FzShop Detailing (Sucursal Munro)",
+        category: "Estética Vehicular",
+        address: "Mariano Pelliza 4212, Munro",
+        wa: "5491144004285",
+        phoneDisplay: "11 4400-4285",
+        email: "",
+        msg: "Hola, ¿qué tal? Mi nombre es Exequiel, soy vecino de Florida Oeste, a pocas cuadras de Pelliza. Les escribo porque fabrico accesorios y piezas a medida en impresión 3D con materiales técnicos de alta resistencia. Para talleres de estética vehicular realizo soportes de pared para pulidoras, organizadores de brochas y cepillos, y boquillas especiales para aspirado; además de copiar a medida cualquier tapa, rejilla o traba plástica faltante del interior de los vehículos. Si les interesa, puedo pasar a mostrarles algunas muestras sin compromiso. ¡Muchas gracias y saludos!"
+      },
+      {
+        id: 6,
+        name: "Griffin Cars",
+        category: "Chapa y Pintura",
+        address: "Francisco Borges 4781, Munro / Vicente López",
+        wa: "5491140258130",
+        phoneDisplay: "11 4025-8130",
+        email: "",
+        msg: "Hola, ¿qué tal? Mi nombre es Exequiel, soy vecino de Florida Oeste (zona calle Haedo). Les escribo para dejarles mi contacto en el taller: me dedico a diseñar y fabricar repuestos plásticos a medida mediante impresión 3D en materiales de alta resistencia mecánica y térmica. Si en algún trabajo de chapa o mecánica necesitan reponer un soporte de faro partido, una guía, tapa o traba que no se consiga en plaza, puedo acercarme al taller a relevar la pieza dañada y fabricar el reemplazo. Quedo a su disposición. ¡Saludos cordiales!"
+      },
+      {
+        id: 7,
+        name: "Cerrajería Automotor Vicente López",
+        category: "Cerrajería Automotor",
+        address: "Nicolás Avellaneda 1803, Florida",
+        wa: "5491171075479",
+        phoneDisplay: "11 7107-5479",
+        email: "",
+        msg: "Hola, ¿qué tal? Mi nombre es Exequiel, soy de Florida Oeste. Les escribo para dejarles mi contacto por si les resulta útil en el taller: fabrico repuestos plásticos a medida de alta resistencia para mecanismos de cerrajería automotor y levantavidrios (patines, colizas, engranajes, levas de cerradura y trabas de varilla que estén discontinuadas o no vengan sueltas). Incluso si la pieza original está partida, puedo tomar las medidas con calibre y fabricar el reemplazo exacto en 24 hs. Quedo a disposición por cualquier consulta. ¡Saludos!"
+      },
+      {
+        id: 8,
+        name: "Cerrajería del Automotor Munro",
+        category: "Cerrajería Automotor",
+        address: "Munro / Florida Oeste",
+        wa: "5491162412050",
+        phoneDisplay: "11 6241-2050",
+        email: "",
+        msg: "Hola, ¿qué tal? Mi nombre es Exequiel, vecino de Florida Oeste. Les escribo brevemente para dejarles mi contacto: realizo fabricación a medida de piezas y repuestos plásticos reforzados para cerraduras y sistemas de levantavidrios (patines, guías, engranajes y levas que no se consiguen como repuesto suelto). A partir de la pieza rota tomo las medidas con calibre y preparo el reemplazo de un día para el otro. Les dejo mi número a disposición para cuando lo necesiten. ¡Muchas gracias y saludos!"
+      },
+      {
+        id: 9,
+        name: "Estudio de Telefonía y Pequeños Electrodomésticos",
+        category: "Service Electrodomésticos",
+        address: "Nicolás Avellaneda 209, Florida",
+        wa: "5491130725061",
+        phoneDisplay: "11 3072-5061",
+        email: "info@estudiodetelefonia.com.ar",
+        subject: "Vecino de Florida Oeste - Repuestos plásticos a medida para pequeños electrodomésticos",
+        msg: "Hola, ¿qué tal? Mi nombre es Exequiel, soy de Florida Oeste. Vi que se especializan en la reparación de pequeños electrodomésticos (cafeteras, aspiradoras, microondas) y quería dejarles mi contacto: diseño y fabrico repuestos plásticos a medida cuando el repuesto original no se consigue (perillas reforzadas, trabas de puerta de microondas, acoples, engranajes o botones partidos). Tomando las medidas de la pieza dañada puedo fabricar el reemplazo exacto en material de alta resistencia. Quedo a disposición del taller. ¡Saludos cordiales!"
+      },
+      {
+        id: 10,
+        name: "Opab Service",
+        category: "Service Línea Blanca",
+        address: "Munro / Vicente López",
+        wa: "5491169570909",
+        phoneDisplay: "11 6957-0909",
+        email: "info@opab.com.ar",
+        subject: "Repuestos plásticos a medida en Munro / Florida Oeste (Lavarropas y Heladeras)",
+        msg: "Hola, ¿qué tal? Mi nombre es Exequiel, soy vecino de Florida Oeste (límite con Munro). Les escribo para dejarles mi contacto a disposición de los técnicos: fabrico piezas y repuestos plásticos a medida para heladeras, lavarropas y cocinas cuando el repuesto original está discontinuado o es difícil de conseguir (manijas, bisagras plásticas, perillas, trabas de puerta y soportes). A partir de la pieza rota tomo las medidas con calibre y en 24 hs entrego el repuesto nuevo reforzado. Quedo a disposición. ¡Saludos cordiales!"
+      },
+      {
+        id: 11,
+        name: "Max Service",
+        category: "Service Línea Blanca",
+        address: "Zona Munro / Vicente López",
+        wa: "5491131489293",
+        phoneDisplay: "11 3148-9293",
+        email: "",
+        msg: "Hola, ¿qué tal? Mi nombre es Exequiel, de Florida Oeste. Les escribo para dejarles mi contacto por si les sirve a los técnicos en las reparaciones: realizo fabricación de repuestos plásticos a medida en materiales de alta resistencia (trabas de puerta de lavarropas, perillas reforzadas, soportes de estantes de heladera, acoples o piezas discontinuadas). Con la muestra de la pieza rota puedo relevar las medidas y fabricar una pieza nueva igual a la original. Quedo a disposición para lo que necesiten. ¡Muchas gracias y saludos!"
+      },
+      {
+        id: 12,
+        name: "TecnicoBsAs",
+        category: "Service Línea Blanca",
+        address: "Partido de Vicente López",
+        wa: "5491132419421",
+        phoneDisplay: "11 3241-9421",
+        email: "",
+        msg: "Hola, ¿qué tal? Mi nombre es Exequiel, vecino de Florida Oeste (Vicente López). Les escribo brevemente para ofrecerles mi servicio a los técnicos del equipo: diseño y fabrico a medida repuestos plásticos discontinuados o difíciles de conseguir para línea blanca (lavarropas, heladeras y secarropas: perillas, manijas, trabas, soportes y acoples). Relevo las medidas directamente de la pieza rota aunque esté partida y la fabrico en plástico técnico reforzado. Les dejo mi contacto a disposición. ¡Saludos cordiales!"
+      },
+      {
+        id: 13,
+        name: "Autopartes Mitre",
+        category: "Casa de Repuestos",
+        address: "Av. Bartolomé Mitre 1650, Florida Oeste",
+        wa: "",
+        phoneDisplay: "011 4761-5933 (Fijo)",
+        email: "accesoriosmitre@hotmail.com",
+        subject: "Vecino de Florida Oeste - Fabricación de repuestos plásticos a medida por muestra",
+        msg: "Hola gente de Autopartes Mitre, ¿cómo andan? Soy Exequiel, vivo acá a unas cuadras en Florida Oeste (sobre Martín J. Haedo). Les escribo cortito porque fabrico repuestos plásticos de auto a medida (esos que ya están discontinuados o que no vienen como repuesto suelto, como engranajes de levantavidrios, trabas de bandeja luneta, soportes de ópticas o tapitas). Uso plásticos resistentes al calor del sol. Si les interesa, puedo pasar por el local en Av. Mitre a dejarles unas muestras por si algún cliente busca algo que no se consigue. ¡Un saludo grande!"
+      },
+      {
+        id: 14,
+        name: "Bulonera Vicente López SRL",
+        category: "Bulonera Industrial",
+        address: "Av. Bartolomé Mitre 1836, Munro / Florida Oeste",
+        wa: "",
+        phoneDisplay: "011 4760-0805 (Fijo)",
+        email: "ventas@buloneravlopez.com.ar",
+        subject: "Vecino de Florida Oeste - Piezas plásticas especiales, bujes y repuestos por muestra",
+        msg: "Hola gente de Bulonera Vicente López, ¿cómo andan? Soy Exequiel, vecino de acá a pocas cuadras en Florida Oeste (sobre Martín J. Haedo). Les escribo para que tengan mi contacto en el mostrador: fabrico piezas plásticas técnicas a medida (separadores especiales, bujes, perillas, acoples de aspiradora para herramientas o repuestos rotos según muestra). Muchas veces entra gente a la bulonera con una pieza plástica partida preguntando si tienen algo parecido; cuando les pase o algún cliente necesite fabricar una pieza por muestra, estoy acá a 7 cuadras. ¡Un saludo grande!"
+      },
+      {
+        id: 15,
+        name: "Multiplacas (Sucursal Florida)",
+        category: "Carpintería y Herrajes",
+        address: "Av. Bartolomé Mitre 1675, Florida / Florida Oeste",
+        wa: "",
+        phoneDisplay: "011 4730-4400 (Fijo)",
+        email: "info@multiplacas.com.ar",
+        subject: "Vecino de Florida Oeste - Plantillas de perforado, escuadras y accesorios 3D a medida",
+        msg: "Hola equipo de Multiplacas Florida, ¿cómo están? Soy Exequiel, vivo a unas cuadras del local de Av. Mitre (en Florida Oeste). Les escribo porque fabrico piezas plásticas técnicas a medida para carpintería y armado de muebles: plantillas de agujereado para bisagras y correderas, escuadras de prensado rápido, topes, pasacables de medidas especiales y regatones fuera de estándar. Si algún carpintero cliente de ustedes o ustedes en el taller necesitan piezas especiales a medida, me acerco en un minuto al local de Mitre. ¡Muchas gracias y saludos!"
+      },
+
+      // TANDA 2 (Portones, Cortinas Roller, Equipamiento Gastronómico, Ortopedias, Gráficas y Herrajes)
+      {
+        id: 16,
+        name: "Asisport Automatización de Portones",
+        category: "Portones Automáticos",
+        address: "Zona Norte / Vicente López",
+        wa: "5491163081176",
+        phoneDisplay: "11 6308-1176",
+        email: "",
+        msg: "Hola, ¿qué tal? Mi nombre es Exequiel, soy de Florida Oeste (Vicente López). Les escribo para dejarles mi contacto a los técnicos: fabrico repuestos y piezas plásticas a medida en materiales técnicos de alta resistencia mecánica y a la intemperie (ABS/ASA/PETG). Si en alguna reparación de portones automáticos necesitan carcasas de finales de carrera, levas de destrabe, soportes para fotocélulas, topes o engranajes auxiliares que no se consigan, puedo copiar la pieza a partir de la muestra rota. Quedo a disposición. ¡Muchas gracias y saludos!"
+      },
+      {
+        id: 17,
+        name: "GastroNovo Equipamiento Gastronómico",
+        category: "Equipamiento Gastronómico",
+        address: "Av. Maipú 957, Vicente López",
+        wa: "5491131685863",
+        phoneDisplay: "11 3168-5863",
+        email: "info@gastronovo.com",
+        msg: "Hola, ¿qué tal? Mi nombre es Exequiel, soy vecino de acá de Vicente López (Florida Oeste). Les escribo para dejarles mi contacto comercial: realizo fabricación a medida de piezas y repuestos plásticos en materiales resistentes a la temperatura y al uso intensivo para equipamiento gastronómico (perillas de hornos y cocinas, manijas, topes, acoples, patas niveladoras o piezas discontinuadas). Si algún cliente o su área técnica necesita reponer una pieza difícil de conseguir según muestra, estoy a pocas cuadras. ¡Saludos cordiales!"
+      },
+      {
+        id: 18,
+        name: "Servicios Integrados (Cafeteras Comerciales)",
+        category: "Service Gastronómico",
+        address: "Cobertura Zona Norte / Vicente López",
+        wa: "5491134458515",
+        phoneDisplay: "11 3445-8515",
+        email: "serviciotecnico@servicios-integrados.com.ar",
+        msg: "Hola, ¿qué tal? Mi nombre es Exequiel, les escribo desde Florida Oeste (Vicente López). Quería dejarles mi contacto para el área de servicio técnico: diseño y fabrico piezas plásticas a medida de alta resistencia térmica y mecánica (perillas, tapas de tolva, acoples, levas, soportes internos o carcasas discontinuadas para cafeteras profesionales y hornos). A partir de la pieza dañada tomo las medidas con calibre y fabrico el reemplazo exacto. Quedo a su disposición por cualquier consulta. ¡Saludos cordiales!"
+      },
+      {
+        id: 19,
+        name: "Rafu Equipamientos (Cortadoras de Fiambre)",
+        category: "Maquinaria Gastronómica",
+        address: "Cobertura GBA Norte / San Martín / Vte. López",
+        wa: "5491125443232",
+        phoneDisplay: "11 2544-3232",
+        email: "",
+        msg: "Hola, ¿qué tal? Mi nombre es Exequiel, de Florida Oeste (Vicente López). Les escribo brevemente para dejarles mi contacto en el taller: fabrico repuestos plásticos macizos a medida mediante impresión 3D con materiales técnicos de alta resistencia al impacto. Cuando necesiten alguna perilla graduada, empujador, manija, tope, buje o tapa plástica para cortadoras de fiambre o maquinaria gastronómica que esté en falta, puedo relevar las medidas de la pieza rota y fabricarla rápidamente. ¡Muchas gracias y saludos!"
+      },
+      {
+        id: 20,
+        name: "Ortopedia Beraca",
+        category: "Ortopedia y Movilidad",
+        address: "Pte. Hipólito Yrigoyen 1732, Florida",
+        wa: "5491164909590",
+        phoneDisplay: "11 6490-9590",
+        email: "ortopediaberaca@gmail.com",
+        msg: "Hola, ¿qué tal? Mi nombre es Exequiel, soy vecino de Florida Oeste. Les escribo para dejarles mi contacto por si les resulta útil para el mantenimiento de sus equipos de alquiler o para clientes: fabrico repuestos plásticos y adaptaciones a medida en materiales de alta resistencia (perillas de regulación, trabas de apoyapiés o apoyabrazos, topes, acoples de caño, regatones especiales y soportes para sillas de ruedas, andadores o camas ortopédicas). Estoy acá a pocas cuadras por cualquier pieza que necesiten copiar. ¡Saludos cordiales!"
+      },
+      {
+        id: 21,
+        name: "Ortopedia Suiza Group",
+        category: "Reparación Sillas de Ruedas",
+        address: "Av. Maipú 1605, Vicente López",
+        wa: "5491165722022",
+        phoneDisplay: "11 6572-2022",
+        email: "",
+        msg: "Hola, ¿qué tal? Mi nombre es Exequiel, de Florida Oeste (Vicente López). Vi que cuentan con servicio de reparación y mantenimiento de sillas de ruedas y equipamiento ortopédico, y quería dejarles mi contacto: diseño y fabrico repuestos plásticos a medida a partir de la pieza rota (trabas, perillas de ajuste, bujes, separadores, topes de freno, tapones estructurales o adaptaciones especiales para pacientes). Trabajo con plásticos técnicos muy resistentes y entregas en 24/48 hs. Quedo a su disposición. ¡Muchas gracias y saludos!"
+      },
+      {
+        id: 22,
+        name: "Centro Integral Ortopédico Olmos",
+        category: "Ortopedia y Ortesis",
+        address: "Francisco N. de Laprida 2715, Florida",
+        wa: "5491126280043",
+        phoneDisplay: "11 2628-0043",
+        email: "",
+        msg: "Hola, ¿qué tal? Mi nombre es Exequiel, soy vecino de Florida Oeste (a pocas cuadras de Laprida). Les escribo para ofrecerles mi servicio técnico de diseño e impresión 3D a medida, tanto en plásticos rígidos de alta resistencia como en materiales flexibles (TPU). Si para algún trabajo de ortesis, adaptación de equipamiento o reparación necesitan fabricar una pieza específica, acople, tope o soporte a medida, puedo acercarme al centro cuando gusten. ¡Saludos cordiales!"
+      },
+      {
+        id: 23,
+        name: "One Print Cartelería y Exhibidores",
+        category: "Gráfica y Exhibidores POP",
+        address: "Estados Unidos 462, Villa Martelli",
+        wa: "5491160507746",
+        phoneDisplay: "11 6050-7746",
+        email: "presupuestos@oneprint.com.ar",
+        msg: "Hola, ¿qué tal? Mi nombre es Exequiel, estoy en Florida Oeste (límite con Villa Martelli). Les escribo para ponerme a disposición como proveedor local de impresión 3D para complementar sus trabajos de gráfica y exhibidores: fabrico letras y logos corpóreos chicos/medianos, soportes y fijaciones ocultas a medida para cartelería, stands de mostrador (con código QR) y llaveros corporativos en volumen. Al estar acá pegados, puedo resolverles entregas rápidas cuando tengan pedidos de ese estilo. ¡Saludos cordiales!"
+      },
+      {
+        id: 24,
+        name: "CCM Gráfica - Sucursal Florida",
+        category: "Gráfica e Imprenta",
+        address: "Av. Bartolomé Mitre 1411, Florida",
+        wa: "5491134051411",
+        phoneDisplay: "11 3405-1411",
+        email: "",
+        msg: "Hola, ¿qué tal? Mi nombre es Exequiel, soy vecino de Florida Oeste (a unas cuadras por Av. Mitre). Les escribo para ofrecerles mi servicio de diseño y fabricación en impresión 3D como complemento para sus clientes de gráfica: realizo carteles de mostrador con logos en relieve (exhibidores de pago QR / redes sociales), letras corpóreas pequeñas, tarjeteros personalizados y llaveros empresariales por cantidad. Si les interesa, puedo acercarme al local de Mitre a dejarles unas muestras. ¡Muchas gracias y saludos!"
+      },
+      {
+        id: 25,
+        name: "Arte3 Gráfica",
+        category: "Gráfica y Punto de Venta",
+        address: "Gral. Las Heras 1694, Vicente López",
+        wa: "5491126239958",
+        phoneDisplay: "11 2623-9958",
+        email: "",
+        msg: "Hola, ¿qué tal? Mi nombre es Exequiel, soy vecino de Florida Oeste (Vicente López). Les escribo para ponerme a disposición como proveedor local de diseño e impresión 3D para complementar sus proyectos gráficos y de punto de venta: fabrico letras y logos corpóreos chicos/medianos, exhibidores de mostrador con relieve (stands QR), soportes o fijaciones especiales a medida y llaveros corporativos por cantidad. Al estar acá en el partido, puedo resolverles entregas rápidas a precio gremio. Quedo a su disposición. ¡Muchas gracias y saludos!"
+      },
+      {
+        id: 26,
+        name: "Sol Técnico Cortinas Roller",
+        category: "Fábrica Cortinas Roller",
+        address: "Fernán Félix de Amador 3710, Munro",
+        wa: "",
+        phoneDisplay: "011 7708-7579 (Fijo)",
+        email: "ventas@cortinasroller.com.ar",
+        subject: "Proveedor en Florida Oeste / Munro - Soportes, punteras y piezas plásticas a medida en 3D",
+        msg: "Hola equipo de Sol Técnico, ¿qué tal? Mi nombre es Exequiel, les escribo desde Florida Oeste (pegado a su fábrica de la calle Amador en Munro). Me pongo en contacto para dejarles mi referencia: realizo diseño y fabricación a medida de piezas plásticas técnicas mediante impresión 3D de alta resistencia. Si en fábrica o en instalaciones necesitan reponer o producir en pequeñas series soportes especiales, punteras, topes de cadena, adaptadores de tubo o piezas discontinuadas según muestra, puedo acercarme a tomar las medidas con calibre y fabricarlas rápidamente acá a pocas cuadras."
+      },
+      {
+        id: 27,
+        name: "Cortinas Roller Villa Martelli",
+        category: "Cortinas Roller",
+        address: "Villa Martelli, Vicente López",
+        wa: "",
+        phoneDisplay: "11 6034-8888",
+        email: "info@cortinas-roller.com.ar",
+        subject: "Proveedor local (Florida Oeste) - Repuestos, soportes y piezas plásticas a medida",
+        msg: "Hola, ¿qué tal? Mi nombre es Exequiel, les escribo desde Florida Oeste (a pocas cuadras de Villa Martelli). Me pongo en contacto para ofrecerles mi servicio de diseño y fabricación de piezas plásticas técnicas a medida mediante impresión 3D de alta resistencia. Si en fábrica o en instalaciones necesitan reponer soportes especiales, punteras, topes de cadena, adaptadores de tubo o piezas discontinuadas según muestra, puedo relevar las medidas con calibre y fabricarlas rápidamente acá en la zona."
+      },
+      {
+        id: 28,
+        name: "Aberturas de Carvalho",
+        category: "Aberturas de Aluminio",
+        address: "Florida, Vicente López",
+        wa: "",
+        phoneDisplay: "Florida",
+        email: "aberturasdecarvalhoma@gmail.com",
+        subject: "Vecino de Florida Oeste - Fabricación de accesorios plásticos, topes y piezas discontinuadas a medida",
+        msg: "Hola equipo de Aberturas de Carvalho, ¿qué tal? Mi nombre es Exequiel, soy vecino de Florida Oeste (Vicente López). Les escribo para dejarles mi contacto por si les resulta útil en el taller o mostrador: realizo diseño y fabricación a medida de piezas plásticas técnicas de alta resistencia (incluyendo materiales aptos para intemperie y rayos UV). Muchas veces en aberturas y cerramientos se necesitan topes especiales, guías de correderas, cubiertas de desagote, esquineros o repuestos plásticos de líneas discontinuadas que ya no se consiguen."
+      },
+      {
+        id: 29,
+        name: "Ortopedia Maipú (Fábrica Sillas Posturales)",
+        category: "Ortopedia y Fabricación",
+        address: "Av. Maipú 1891, Olivos",
+        wa: "5491133888923",
+        phoneDisplay: "11 3388-8923",
+        email: "ortopediamaipu@gmail.com",
+        subject: "Fabricación de repuestos plásticos y adaptaciones 3D a medida para sillas de ruedas y ortopedia",
+        msg: "Hola equipo de Ortopedia Maipú, ¿qué tal? Mi nombre es Exequiel, soy de Florida Oeste (Vicente López). Vi que además de venta y alquiler realizan fabricación de sillas posturales a medida, y quería ofrecerles mi servicio de diseño e impresión 3D técnica (tanto en materiales rígidos de alto impacto como en elastómeros flexibles TPU). Puedo fabricar a medida tanto repuestos discontinuados para el mantenimiento de sillas de ruedas y andadores como adaptaciones personalizadas."
+      },
+      {
+        id: 30,
+        name: "Studio 5 Florida",
+        category: "Gráfica y Diseño",
+        address: "Av. San Martín 2263, Florida",
+        wa: "5491161195925",
+        phoneDisplay: "11 6119-5925",
+        email: "studio5florida@gmail.com",
+        subject: "Alianza en Florida - Producción 3D de corpóreos, exhibidores de mostrador y merchandising",
+        msg: "Hola equipo de Studio 5 Florida, ¿qué tal? Mi nombre es Exequiel, soy vecino de acá de Florida Oeste. Les escribo para ponerme a disposición como taller local de diseño e impresión 3D para complementar los trabajos que les pidan sus clientes comerciales: exhibidores de mostrador con logo en relieve (QR Mercado Pago, Wi-Fi, Instagram), letras corpóreas pequeñas/medianas, soportes especiales y llaveros empresariales."
+      },
+      {
+        id: 31,
+        name: "Ducasse Industrial",
+        category: "Herrajes y Sistemas Corredizos",
+        address: "Av. Francisco Narciso de Laprida 4755, Villa Martelli",
+        wa: "",
+        phoneDisplay: "011 4709-9699 (Fijo)",
+        email: "info@ducasseindustrial.com.ar",
+        subject: "Proveedor en Florida Oeste / V. Martelli - Prototipado rápido, topes y piezas plásticas técnicas",
+        msg: "Hola equipo de Ducasse Industrial, ¿qué tal? Mi nombre es Exequiel, estoy ubicado en Florida Oeste, muy cerca de su planta de Av. Laprida en Villa Martelli. Les escribo para ofrecerles mi servicio de diseño CAD e impresión 3D en materiales técnicos de ingeniería (ABS, ASA, PETG y TPU flexible) para prototipos funcionales rápidos en 24 hs, plantillas de instalación (jigs), topes amortiguadores o suplementos a medida."
+      }
+    ];
+
+    const defaultSent = {};
+    leads.forEach(l => defaultSent[l.id] = 'sent');
+    const savedStatus = Object.assign({}, defaultSent, JSON.parse(localStorage.getItem('exe_leads_status_v2') || '{}'));
+
+    function updateCounter() {
+      const sentCount = Object.values(savedStatus).filter(s => s !== 'pending' && s !== undefined).length;
+      document.getElementById('counter').textContent = `Contactados: ${sentCount} / ${leads.length}`;
+    }
+
+    function render() {
+      const container = document.getElementById('cards-container');
+      const query = (document.getElementById('search').value || '').toLowerCase();
+      container.innerHTML = '';
+
+      leads
+        .filter(l =>
+          l.name.toLowerCase().includes(query) ||
+          l.category.toLowerCase().includes(query) ||
+          l.address.toLowerCase().includes(query) ||
+          l.phoneDisplay.toLowerCase().includes(query)
+        )
+        .forEach(lead => {
+          const status = savedStatus[lead.id] || 'sent';
+          const card = document.createElement('div');
+          card.className = `card ${status === 'replied' ? 'replied' : (status !== 'pending' ? 'sent' : '')}`;
+          card.id = `card-${lead.id}`;
+
+          const waBtn = lead.wa
+            ? `<button class="btn btn-wa" onclick="sendWA(${lead.id}, '${lead.wa}')">💬 Abrir WhatsApp (${lead.phoneDisplay})</button>`
+            : '';
+
+          const mailBtn = lead.email
+            ? `<button class="btn btn-mail" onclick="sendGmail(${lead.id}, '${lead.email}', '${(lead.subject || 'Consulta vecino Florida Oeste').replace(/'/g, "\\'")}')">✉️ Abrir Gmail (${lead.email})</button>`
+            : '';
+
+          card.innerHTML = `
+            <div class="card-header">
+              <h3 class="title">${lead.id}. ${lead.name}</h3>
+              <span class="category">${lead.category}</span>
+            </div>
+            <div class="meta">📍 ${lead.address}</div>
+            <textarea id="msg-${lead.id}">${lead.msg}</textarea>
+            <div class="actions">
+              ${waBtn}
+              ${mailBtn}
+              <select class="status-select" onchange="changeStatus(${lead.id}, this.value)">
+                <option value="pending" ${status === 'pending' ? 'selected' : ''}>⏳ Pendiente</option>
+                <option value="sent" ${status === 'sent' ? 'selected' : ''}>✅ Enviado</option>
+                <option value="replied" ${status === 'replied' ? 'selected' : ''}>🔥 Respondió</option>
+                <option value="visit" ${status === 'visit' ? 'selected' : ''}>🚶 Pasar en persona</option>
+              </select>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      updateCounter();
+    }
+
+    function sendWA(id, phone) {
+      const text = document.getElementById(`msg-${id}`).value;
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+    }
+
+    function sendGmail(id, email, subject) {
+      const body = document.getElementById(`msg-${id}`).value;
+      const url = `https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=${encodeURIComponent(email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.open(url, '_blank');
+    }
+
+    function changeStatus(id, value) {
+      savedStatus[id] = value;
+      localStorage.setItem('exe_leads_status_v2', JSON.stringify(savedStatus));
+      render();
+    }
+
+    render();
+  </script>
+</body>
+</html>

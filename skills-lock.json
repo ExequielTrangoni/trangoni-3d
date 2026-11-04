@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "b2b-outreach-suite": {
+      "source": "microsoft/cat-agent-skills",
+      "sourceType": "github",
+      "skillPath": "submissions/b2b-outreach-suite/SKILL.md",
+      "computedHash": "5e91ea4b13221d60fa085e06b224e66c799569a8800bf2c7ef63158f79c74a1c"
+    },
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/frontend-design/SKILL.md",
+      "computedHash": "d91970639e9f5c37682ac7ab60094d35f1c7c1f38d731bd56396563aee10c1d3"
+    }
+  }
+}
