@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TRANGONI — Matricería Digital y Repuestos Plásticos a Medida | Florida Oeste, Vte. López</title>
+  <meta name="description" content="Taller de fabricación aditiva en polímeros de ingeniería (ABS, ASA, PETG, TPU). Reproducción de repuestos discontinuados sobre muestra rota y series cortas en Vicente López.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #F2EFE9;
+      --paper-alt: #E7E3DA;
+      --ink: #141413;
+      --ink-secondary: #4E4D48;
+      --ink-muted: #78766F;
+      --rule: #C7C3B8;
+      --rule-dark: #141413;
+      --vermilion: #C83E1B;
+      --vermilion-hover: #A63012;
+      --mono: 'IBM Plex Mono', monospace;
+      --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --display: 'Space Grotesk', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .frame {
+      max-width: 1240px;
+      margin: 0 auto;
+      border-left: 1px solid var(--rule);
+      border-right: 1px solid var(--rule);
+    }
+
+    /* TOP TECHNICAL STRIP */
+    .spec-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 24px;
+      border-bottom: 1px solid var(--rule);
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--ink-secondary);
+      background-color: var(--paper-alt);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .spec-strip-group {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    /* HEADER / MASTHEAD */
+    header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: stretch;
+      border-bottom: 2px solid var(--rule-dark);
+    }
+
+    .brand-block {
+      padding: 22px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .brand-name {
+      font-family: var(--display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+
+    .brand-sub {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--ink-secondary);
+      margin-top: 4px;
+    }
+
+    .nav-block {
+      display: flex;
+      align-items: stretch;
+      border-left: 1px solid var(--rule);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 24px;
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: var(--vermilion);
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      background-color: var(--ink);
+      color: var(--paper);
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+
+    .nav-cta:hover {
+      background-color: var(--vermilion);
+    }
+
+    /* ASYMMETRIC EDITORIAL HERO */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 7fr 5fr;
+      border-bottom: 1px solid var(--rule-dark);
+    }
+
+    .hero-main {
+      padding: 48px 32px 48px 24px;
+      border-right: 1px solid var(--rule);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .kicker {
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--vermilion);
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-family: var(--display);
+      font-size: clamp(2rem, 3.6vw, 3.1rem);
+      font-weight: 700;
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+      max-width: 18ch;
+    }
+
+    .hero-lead {
+      font-size: 1.05rem;
+      color: var(--ink-secondary);
+      max-width: 56ch;
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+
+    .action-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: var(--vermilion);
+      color: #fff;
+      font-family: var(--mono);
+      font-size: 0.84rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 15px 24px;
+      border: 1px solid var(--vermilion);
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--vermilion-hover);
+    }
+
+    .btn-secondary {
+      display: inline-block;
+      background-color: transparent;
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 0.84rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 15px 22px;
+      border: 1px solid var(--ink);
+      cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--paper-alt);
+    }
+
+    .hero-aside {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background-color: var(--paper-alt);
+    }
+
+    .datasheet-box {
+      padding: 28px 24px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .datasheet-title {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink-muted);
+      margin-bottom: 14px;
+    }
+
+    .spec-list {
+      list-style: none;
+      font-size: 0.88rem;
+    }
+
+    .spec-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--rule);
+      gap: 16px;
+    }
+
+    .spec-list li:last-child {
+      border-bottom: none;
+    }
+
+    .spec-key {
+      color: var(--ink-secondary);
+    }
+
+    .spec-val {
+      font-family: var(--mono);
+      font-weight: 500;
+      text-align: right;
+    }
+
+    .location-notice {
+      padding: 24px;
+      font-size: 0.86rem;
+      color: var(--ink-secondary);
+      line-height: 1.55;
+    }
+
+    .location-notice strong {
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    /* SECTION HEADERS */
+    .section-bar {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      border-bottom: 1px solid var(--rule-dark);
+      background-color: var(--paper);
+    }
+
+    .section-index {
+      padding: 20px 24px;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-right: 1px solid var(--rule);
+      color: var(--ink-secondary);
+    }
+
+    .section-heading {
+      padding: 20px 24px;
+      font-family: var(--display);
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    /* DOCUMENTARY PHOTO LOG (ASYMMETRIC 2x2) */
+    .photo-log {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--rule-dark);
+    }
+
+    .photo-entry {
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .photo-entry:nth-child(odd) {
+      border-right: 1px solid var(--rule);
+    }
+
+    .photo-entry:nth-last-child(-n+2) {
+      border-bottom: none;
+    }
+
+    .photo-meta-bar {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 20px;
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      color: var(--ink-muted);
+      border-bottom: 1px solid var(--rule);
+      background-color: var(--paper-alt);
+    }
+
+    .photo-frame {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background-color: #DCD8CE;
+      overflow: hidden;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-body {
+      padding: 20px 24px 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .photo-body h3 {
+      font-family: var(--display);
+      font-size: 1.12rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .photo-body p {
+      font-size: 0.9rem;
+      color: var(--ink-secondary);
+      line-height: 1.55;
+      margin-bottom: 14px;
+    }
+
+    .photo-tag {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--ink);
+      padding-top: 10px;
+      border-top: 1px solid var(--rule);
+    }
+
+    /* CATALOG INDEX BY RUBRO (TABULAR, NOT CARDS) */
+    .rubro-table {
+      border-bottom: 1px solid var(--rule-dark);
+    }
+
+    .rubro-row {
+      display: grid;
+      grid-template-columns: 280px 1fr 260px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .rubro-row:last-child {
+      border-bottom: none;
+    }
+
+    .rubro-col-title {
+      padding: 28px 24px;
+      border-right: 1px solid var(--rule);
+      background-color: var(--paper-alt);
+    }
+
+    .rubro-code {
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      color: var(--vermilion);
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .rubro-col-title h3 {
+      font-family: var(--display);
+      font-size: 1.15rem;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    .rubro-col-items {
+      padding: 28px 32px;
+      border-right: 1px solid var(--rule);
+    }
+
+    .item-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 24px;
+      font-size: 0.9rem;
+    }
+
+    .item-list li {
+      position: relative;
+      padding-left: 14px;
+      color: var(--ink);
+    }
+
+    .item-list li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: var(--ink-muted);
+    }
+
+    .rubro-col-specs {
+      padding: 28px 24px;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--ink-secondary);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    /* MATERIAL DATASHEET TABLE */
+    .table-wrap {
+      overflow-x: auto;
+      border-bottom: 1px solid var(--rule-dark);
+    }
+
+    table.mat-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    table.mat-table th {
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 14px 24px;
+      background-color: var(--paper-alt);
+      border-bottom: 1px solid var(--rule-dark);
+      border-right: 1px solid var(--rule);
+      color: var(--ink-secondary);
+    }
+
+    table.mat-table td {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--rule);
+      border-right: 1px solid var(--rule);
+      vertical-align: top;
+    }
+
+    table.mat-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    table.mat-table th:last-child,
+    table.mat-table td:last-child {
+      border-right: none;
+    }
+
+    .mat-code {
+      font-family: var(--mono);
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    /* WORKFLOW & CONTACT FOOTER */
+    .bottom-split {
+      display: grid;
+      grid-template-columns: 7fr 5fr;
+    }
+
+    .workflow-col {
+      padding: 40px 32px 40px 24px;
+      border-right: 1px solid var(--rule);
+    }
+
+    .workflow-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .wf-step-num {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--vermilion);
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: block;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .wf-step h4 {
+      font-family: var(--display);
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+    .wf-step p {
+      font-size: 0.86rem;
+      color: var(--ink-secondary);
+    }
+
+    .contact-col {
+      padding: 40px 24px;
+      background-color: var(--ink);
+      color: var(--paper);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .contact-col h3 {
+      font-family: var(--display);
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+
+    .contact-data {
+      font-family: var(--mono);
+      font-size: 0.83rem;
+      line-height: 1.8;
+      color: #D6D3CD;
+      margin: 18px 0 24px;
+      padding: 16px 0;
+      border-top: 1px solid #333330;
+      border-bottom: 1px solid #333330;
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid,
+      .photo-log,
+      .bottom-split {
+        grid-template-columns: 1fr;
+      }
+      .hero-main,
+      .photo-entry:nth-child(odd),
+      .workflow-col {
+        border-right: none;
+      }
+      .section-bar,
+      .rubro-row {
+        grid-template-columns: 1fr;
+      }
+      .section-index,
+      .rubro-col-title,
+      .rubro-col-items {
+        border-right: none;
+        border-bottom: 1px solid var(--rule);
+      }
+      .item-list,
+      .workflow-steps {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .no-print { display: none !important; }
+      .frame { border: none; max-width: 100%; }
+      .contact-col { background: #fff; color: #000; border-top: 2px solid #000; }
+      .contact-data { color: #000; }
+      .photo-entry, .rubro-row { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="frame">
+    <!-- TOP TECHNICAL STRIP -->
+    <div class="spec-strip">
+      <div class="spec-strip-group">
+        <span>TALLER: MARTÍN J. HAEDO 4200, FLORIDA OESTE (VICENTE LÓPEZ)</span>
+        <span>COBERTURA: GBA NORTE / CABA</span>
+      </div>
+      <div class="spec-strip-group">
+        <span>TOLERANCIA CAD: ±0.15 MM</span>
+        <span>ENTREGA ESTÁNDAR: 24–48 HS</span>
+      </div>
+    </div>
+
+    <!-- MASTHEAD -->
+    <header>
+      <div class="brand-block">
+        <div class="brand-name">Trangoni — Fabricación Técnica 3D</div>
+        <div class="brand-sub">Ingeniería inversa de repuestos plásticos, matricería rápida y series cortas para comercios</div>
+      </div>
+      <div class="nav-block no-print">
+        <nav class="nav-links">
+          <a href="#muestras">Muestras de Taller</a>
+          <a href="#catalogo">Índice por Rubro</a>
+          <a href="#materiales">Polímeros</a>
+          <a href="#contacto">Ubicación</a>
+        </nav>
+        <button class="nav-cta" onclick="window.print()">Descargar Ficha PDF</button>
+      </div>
+    </header>
+
+    <!-- ASYMMETRIC HERO -->
+    <section class="hero-grid">
+      <div class="hero-main">
+        <div>
+          <div class="kicker">Producción a Pedido sobre Muestra o Plano</div>
+          <h1 class="hero-title">Reproducimos piezas plásticas discontinuadas o rotas que no existen como repuesto suelto.</h1>
+          <p class="hero-lead">
+            Tomamos las medidas con calibre digital directamente de la pieza rota (incluso si está partida en varios fragmentos), generamos el plano 3D reforzando las zonas críticas de fractura e imprimimos el reemplazo en polímeros técnicos de cámara cerrada que soportan temperatura, fricción e intemperie.
+          </p>
+        </div>
+        <div class="action-row no-print">
+          <a href="#contacto" class="btn-primary">Coordinar Retiro o Presupuesto</a>
+          <a href="#catalogo" class="btn-secondary">Ver Listado de Piezas por Rubro</a>
+        </div>
+      </div>
+
+      <aside class="hero-aside">
+        <div class="datasheet-box">
+          <div class="datasheet-title">Especificaciones Operativas del Taller</div>
+          <ul class="spec-list">
+            <li>
+              <span class="spec-key">Tecnología de máquina</span>
+              <span class="spec-val">CoreXY Cámara Cerrada</span>
+            </li>
+            <li>
+              <span class="spec-key">Volumen máximo por pieza</span>
+              <span class="spec-val">220 × 220 × 220 mm</span>
+            </li>
+            <li>
+              <span class="spec-key">Materiales de trabajo</span>
+              <span class="spec-val">ABS / ASA / PETG / TPU 95A</span>
+            </li>
+            <li>
+              <span class="spec-key">Resistencia térmica máx.</span>
+              <span class="spec-val">Hasta 98 °C (ABS / ASA)</span>
+            </li>
+            <li>
+              <span class="spec-key">Modalidad de trabajo</span>
+              <span class="spec-val">Por unidad o serie corta</span>
+            </li>
+            <li>
+              <span class="spec-key">Relevamiento dimensional</span>
+              <span class="spec-val">Calibre digital / CAD Fusion</span>
+            </li>
+          </ul>
+        </div>
+        <div class="location-notice">
+          <strong>Base Operativa en Florida Oeste</strong>
+          Taller de diseño y producción sobre calle Martín J. Haedo al 4200 (entre Av. Mitre y Pelliza, Partido de Vicente López). Atención a gremio y particulares con coordinación previa. Retiramos muestras sin cargo en talleres de Florida, Munro y Villa Martelli.
+        </div>
+      </aside>
+    </section>
+
+    <!-- SECTION 01: DOCUMENTARY PHOTO LOG -->
+    <div class="section-bar" id="muestras">
+      <div class="section-index">Sección 01 // Registro</div>
+      <h2 class="section-heading">Trabajos y Muestras Reales de Banco</h2>
+    </div>
+
+    <section class="photo-log">
+      <article class="photo-entry">
+        <div class="photo-meta-bar">
+          <span>REF-01 // INGENIERÍA INVERSA</span>
+          <span>MATERIAL: PETG / ABS NEGRO</span>
+        </div>
+        <div class="photo-frame">
+          <img src="./fotos_catalogo/1_repuestos_antes_despues.jpg" alt="Pieza plástica original rota junto a su reemplazo impreso en 3D y calibre metálico">
+        </div>
+        <div class="photo-body">
+          <div>
+            <h3>Reconstrucción a partir de Pieza Partida</h3>
+            <p>
+              No hace falta que la muestra esté entera. Unimos los fragmentos para relevar distancias entre centros de agujeros, espesores de pared y encastres, y entregamos una pieza maciza con mayor densidad de relleno que el plástico inyectado original.
+            </p>
+          </div>
+          <div class="photo-tag">Aplicación: Soportes de óptica, grampas de torpedo, levas y trabas mecánicas.</div>
+        </div>
+      </article>
+
+      <article class="photo-entry">
+        <div class="photo-meta-bar">
+          <span>REF-02 // REPUESTOS TÉCNICOS</span>
+          <span>MATERIAL: ABS / PETG / NYLON</span>
+        </div>
+        <div class="photo-frame">
+          <img src="./fotos_catalogo/2_piezas_tecnicas_varias.jpg" alt="Muestrario de engranajes, perillas con vástago en D, patines de levantavidrios y bujes">
+        </div>
+        <div class="photo-body">
+          <div>
+            <h3>Componentes Funcionales de Desgaste y Tracción</h3>
+            <p>
+              Engranajes rectos y helicoidales, perillas de hornos y cocinas con encastre metálico o en forma de D, patines de levantavidrios automotor, bujes separadores a medida y trabas de puertas de lavarropas o microondas.
+            </p>
+          </div>
+          <div class="photo-tag">Aplicación: Talleres mecánicos, cerrajería automotor, línea blanca y equipamiento gastronómico.</div>
+        </div>
+      </article>
+
+      <article class="photo-entry">
+        <div class="photo-meta-bar">
+          <span>REF-03 // PUNTO DE VENTA Y GRÁFICA</span>
+          <span>MATERIAL: PLA PRO / PETG BICOLOR</span>
+        </div>
+        <div class="photo-frame">
+          <img src="./fotos_catalogo/3_grafica_exhibidores_corporeos.jpg" alt="Exhibidor de mostrador con código QR en relieve 3D y llaveros corporativos">
+        </div>
+        <div class="photo-body">
+          <div>
+            <h3>Producción Tercerizada para Imprentas y Comercios</h3>
+            <p>
+              Fabricamos displays de mostrador con códigos QR (Mercado Pago, Wi-Fi, Instagram) integrados en relieve plástico bicolor que no se despegan ni se borran con la limpieza, además de letras corpóreas y llaveros empresariales por lote.
+            </p>
+          </div>
+          <div class="photo-tag">Aplicación: Gráficas, estudios de diseño, locales gastronómicos y mostradores comerciales.</div>
+        </div>
+      </article>
+
+      <article class="photo-entry">
+        <div class="photo-meta-bar">
+          <span>REF-04 // EQUIPAMIENTO DE TALLER</span>
+          <span>CÁMARA CERRADA TÉRMICA</span>
+        </div>
+        <div class="photo-frame">
+          <img src="./fotos_catalogo/4_impresora_produccion.jpg" alt="Impresora 3D de cámara cerrada produciendo un soporte mecánico negro">
+        </div>
+        <div class="photo-body">
+          <div>
+            <h3>Impresión en Cámara Cerrada sin Deformación</h3>
+            <p>
+              A diferencia de las impresoras abiertas domésticas que solo imprimen plástico básico (que se ablanda a 55 °C al sol dentro de un auto), nuestro equipo cerrado mantiene temperatura controlada para fundir ABS y ASA técnico sin fisuras entre capas.
+            </p>
+          </div>
+          <div class="photo-tag">Capacidad: Prototipos en el día y lotes de 10 a 200 unidades idénticas.</div>
+        </div>
+      </article>
+    </section>
+
+    <!-- SECTION 02: CATALOG BY RUBRO -->
+    <div class="section-bar" id="catalogo">
+      <div class="section-index">Sección 02 // Catálogo</div>
+      <h2 class="section-heading">Índice de Piezas que Fabricamos Habitualmente</h2>
+    </div>
+
+    <section class="rubro-table">
+      <div class="rubro-row">
+        <div class="rubro-col-title">
+          <span class="rubro-code">RUBRO 01</span>
+          <h3>Automotor, Chapa, Motos y Cerrajería Vehicular</h3>
+        </div>
+        <div class="rubro-col-items">
+          <ul class="item-list">
+            <li>Patines, colizas y guías de máquinas levantavidrios.</li>
+            <li>Engranajes y levas de compuertas de calefacción / climatizador.</li>
+            <li>Orejas y soportes de reparación para ópticas y faros.</li>
+            <li>Soportes de paragolpes, grampas de baguetas y retenes.</li>
+            <li>Trabas de bandeja luneta, ganchos de parasol y tapas de fusiblera.</li>
+            <li>Soportes de pared para pulidoras, baterías y picos de aspirado (Detailing).</li>
+          </ul>
+        </div>
+        <div class="rubro-col-specs">
+          <span>POLÍMERO RECOMENDADO:</span>
+          <strong>ABS / ASA Negro Mate</strong>
+          <span>Soporta el calor directo del torpedo al sol (+95 °C) e impacto mecánico.</span>
+        </div>
+      </div>
+
+      <div class="rubro-row">
+        <div class="rubro-col-title">
+          <span class="rubro-code">RUBRO 02</span>
+          <h3>Electrodomésticos, Línea Blanca y Gastronomía</h3>
+        </div>
+        <div class="rubro-col-items">
+          <ul class="item-list">
+            <li>Perillas reforzadas para cocinas, anafes, hornos y cortadoras de fiambre.</li>
+            <li>Trabas y pestillos de puerta para lavarropas, secarropas y microondas.</li>
+            <li>Manijas de heladeras, soportes de estantes y bisagras intermedias.</li>
+            <li>Tapas de tolva para molinos de café comerciales y empujadores.</li>
+            <li>Acoples y boquillas reductoras para aspiradoras industriales.</li>
+            <li>Engranajes de electrodomésticos de cocina y levas de selectores.</li>
+          </ul>
+        </div>
+        <div class="rubro-col-specs">
+          <span>POLÍMERO RECOMENDADO:</span>
+          <strong>PETG Técnico / ABS</strong>
+          <span>Alta tenacidad, lavable, resistente a humedad, vapor y químicos de limpieza.</span>
+        </div>
+      </div>
+
+      <div class="rubro-row">
+        <div class="rubro-col-title">
+          <span class="rubro-code">RUBRO 03</span>
+          <h3>Ortopedia, Cortinas Roller, Aberturas y Portones</h3>
+        </div>
+        <div class="rubro-col-items">
+          <ul class="item-list">
+            <li>Perillas de apriete tipo estrella, trabas de apoyapiés y apoyabrazos de sillas de ruedas.</li>
+            <li>Regatones especiales antideslizantes, topes de freno y abrazaderas de caño.</li>
+            <li>Punteras, soportes de cadena y adaptadores de tubo para cortinas roller.</li>
+            <li>Topes de hojas corredizas, esquineros y tapas de desagote para aluminio/PVC.</li>
+            <li>Carcasas para finales de carrera, soportes de fotocélulas y levas de destrabe.</li>
+            <li>Plantillas de agujereado (jigs) a medida para carpinteros e instaladores.</li>
+          </ul>
+        </div>
+        <div class="rubro-col-specs">
+          <span>POLÍMERO RECOMENDADO:</span>
+          <strong>PETG / ASA / TPU 95A</strong>
+          <span>Combinación de piezas rígidas estructurales y elastómeros flexibles amortiguantes.</span>
+        </div>
+      </div>
+
+      <div class="rubro-row">
+        <div class="rubro-col-title">
+          <span class="rubro-code">RUBRO 04</span>
+          <h3>Gráficas, Imprentas y Punto de Venta (Precio Gremio)</h3>
+        </div>
+        <div class="rubro-col-items">
+          <ul class="item-list">
+            <li>Exhibidores de mostrador con código QR impreso en relieve bicolor.</li>
+            <li>Carteles de escritorio con logo corporativo en 3D y porta-tarjetas.</li>
+            <li>Letras y logotipos corpóreos de 3 a 22 cm listos para montar o pintar.</li>
+            <li>Fijaciones ocultas, separadores de pared para acrílicos y letras de chapa.</li>
+            <li>Llaveros corporativos resistentes en dos colores (lotes desde 20 u.).</li>
+            <li>Soportes de exhibición a medida para productos en vidriera.</li>
+          </ul>
+        </div>
+        <div class="rubro-col-specs">
+          <span>MODALIDAD COMERCIAL:</span>
+          <strong>Descuento por Lote / Gremio</strong>
+          <span>Entregas rápidas en 24/48 hs para imprentas de Vicente López y San Martín.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 03: TECHNICAL MATERIALS TABLE -->
+    <div class="section-bar" id="materiales">
+      <div class="section-index">Sección 03 // Materiales</div>
+      <h2 class="section-heading">Guía de Polímeros Disponibles en Taller</h2>
+    </div>
+
+    <div class="table-wrap">
+      <table class="mat-table">
+        <thead>
+          <tr>
+            <th>Polímero</th>
+            <th>Temp. Trabajo</th>
+            <th>Comportamiento Mecánico</th>
+            <th>Uso Principal en nuestro Taller</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="mat-code">PETG Industrial</td>
+            <td>Hasta 75 °C</td>
+            <td>Rígido con ligera flexión antes de rotura; excelente adhesión entre capas e impermeable.</td>
+            <td>Repuestos de línea blanca, acoples de máquinas, soportes de taller, ortopedia y herrajes de interior.</td>
+          </tr>
+          <tr>
+            <td class="mat-code">ABS / ASA Técnico</td>
+            <td>Hasta 98 °C</td>
+            <td>Alta resistencia térmica, al impacto y a los rayos UV solares (ASA). Permite lijado y roscado.</td>
+            <td>Piezas de interior y torpedo de autos, soportes bajo capot, carcasas de portones al exterior y perillas de calor.</td>
+          </tr>
+          <tr>
+            <td class="mat-code">TPU 95A (Elastómero)</td>
+            <td>Hasta 80 °C</td>
+            <td>Caucho sintético flexible, indesgarrable, absorbe vibraciones, golpes y abrasión por roce.</td>
+            <td>Regatones a medida, topes amortiguadores, fuelles, juntas, patas antivibratorias y protectores.</td>
+          </tr>
+          <tr>
+            <td class="mat-code">PLA de Alta Velocidad</td>
+            <td>Hasta 55 °C</td>
+            <td>Máxima definición superficial y aristas vivas para piezas sin exigencia térmica.</td>
+            <td>Prototipos de verificación de calce rápido, letras corpóreas de interior, exhibidores QR y plantillas.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECTION 04: WORKFLOW & CONTACT -->
+    <section class="bottom-split" id="contacto">
+      <div class="workflow-col">
+        <div class="kicker">Procedimiento de Trabajo</div>
+        <h2 class="section-heading" style="padding: 0; margin-bottom: 8px;">Cómo encargar un repuesto a medida o una serie</h2>
+        <div class="workflow-steps">
+          <div class="wf-step">
+            <span class="wf-step-num">PASO 01</span>
+            <h4>Envío de Foto</h4>
+            <p>Nos mandás por WhatsApp una foto de la pieza rota (idealmente con una regla o cinta métrica al lado) o el archivo/bosquejo de lo que necesitás fabricar.</p>
+          </div>
+          <div class="wf-step">
+            <span class="wf-step-num">PASO 02</span>
+            <h4>Medición con Calibre</h4>
+            <p>Nos acercás la muestra a Florida Oeste o pasamos a retirarla por tu taller en la zona. Relevamos todas las cotas en Fusion 360.</p>
+          </div>
+          <div class="wf-step">
+            <span class="wf-step-num">PASO 03</span>
+            <h4>Impresión 24–48 hs</h4>
+            <p>Fabricamos la pieza en el polímero adecuado para el esfuerzo que va a realizar y te la entregamos lista para colocar. El diseño digital queda guardado por si necesitás repetirla.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-col">
+        <div>
+          <div class="kicker" style="color: #E86C4A;">Contacto Directo de Taller</div>
+          <h3>Exequiel Trangoni</h3>
+          <p style="font-size: 0.9rem; color: #B8B5AD;">
+            Consultas técnicas, cotizaciones por foto y coordinación de retiro de muestras en Zona Norte.
+          </p>
+          <div class="contact-data">
+            DIRECCIÓN: Martín J. Haedo al 4200, Florida Oeste<br>
+            PARTIDO: Vicente López (CP 1604), Prov. de Buenos Aires<br>
+            MODALIDAD: Taller a puertas cerradas / Retiro en comercios<br>
+            EMAIL: exetrangoni89@gmail.com
+          </div>
+        </div>
+        <div class="no-print">
+          <a href="mailto:exetrangoni89@gmail.com?subject=Consulta%20por%20fabricaci%C3%B3n%20de%20pieza%203D" class="btn-primary" style="width: 100%; text-align: center;">Enviar Consulta por Correo</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+</body>
+</html>
