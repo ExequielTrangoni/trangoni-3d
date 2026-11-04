@@ -19,7 +19,7 @@
 - Typical triggers that make a prospect relevant (new role, audit, expansion, cost pressure, ...):
 
 ## Style guardrails
-- Taboo words and phrases (never use): "Muñequitos", "adornos", "figuras", "plástico hueco y frágil", "juguetes", "plástico de maqueta", "estoy medio perdido", "capaz hacer".
+- Taboo words and phrases (never use): "plástico", "plásticos", "plástica", "plásticas", "Muñequitos", "adornos", "figuras", "plástico hueco y frágil", "juguetes", "plástico de maqueta", "estoy medio perdido", "capaz hacer".
 - Preferred vocabulary / action verbs: 
 - Emoji policy (none / subtle / per channel): none
 - Formality (formal address, first names, per market): Amigable y directo, estilo "charla entre emprendedores" utilizando el "vos" argentino, mostrándote como un socio técnico sin sonar robótico ni usar frases dubitativas y siendo mas formal cuando es necesario.
